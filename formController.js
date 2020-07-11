@@ -2,7 +2,7 @@
  * FormController.js
  * For Bootstrap 4 & Others
  * Author: Tisserand David
- * v0.95 2019-04-02
+ * v1.1 2020-07-10
  */
 
 
@@ -163,8 +163,7 @@ function FormController(target, options) {
 	// On submit Control
 	var that = this;
 	$(that.target+' .btn-submit').click(function(){
-	/*$(this.target).on('submit', function(event){
-		event.preventDefault();*/
+
 		validationSuccess = true;
 
 		$(that.target+' input, '+that.target+' textarea, '+that.target+' select').each(function(){
@@ -261,6 +260,7 @@ FormController.prototype.validation = function(step) {
 		return false;
 	}
 }
+
 FormController.prototype.display = function(input, inputError) {
 	var inputName = input.attr('name');
 	if (inputName != undefined) {
@@ -289,6 +289,7 @@ FormController.prototype.display = function(input, inputError) {
 		}
 	}
 }
+
 FormController.prototype.control = function(input) {
 
 	// On ignore les champs invisibles
@@ -334,7 +335,7 @@ FormController.prototype.control = function(input) {
 						inputError = value.length<min || value.length>max;
 						break;
 					case 'email':
-						inputError = !value.match(/^[^\W][a-zA-Z0-9_-]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/i);
+						inputError = !value.match(/^[a-z0-9_\.-]+\@[a-z0-9_\.-]+\.[a-z]{2,4}$/i);
 						break;
 					case 'url':
 						inputError = !value.match(/^(http(s)?:\/\/(www\.)?)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i);
