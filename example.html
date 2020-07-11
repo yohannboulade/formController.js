@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>FormController</title>
+
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+	
+	<div class="container">
+		<div class="row mt-5">
+			<div class="col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+				<form id="one" class="controlled">
+					<div class="row">
+						<div class="col-12">
+							<div class="form-group">
+								<label>Text (control length: min 5)</label>
+								<input class="form-control" type="text" name="test_minlength" data-control-minLength="5" required="" />
+								<div class="invalid-feedback">Texte trop court</div>
+							</div>
+							<div class="form-group">
+								<label>Text (control length: max 5)</label>
+								<input class="form-control" type="text" name="test_maxlength" data-control-maxLength="5" required="" />
+								<div class="invalid-feedback">Texte trop long</div>
+							</div>
+							<div class="form-group">
+								<label>Text (control length: between 5 and 10)</label>
+								<input class="form-control" type="text" name="" data-control-length="5-10" />
+								<div class="invalid-feedback">Texte est trop court OU trop long</div>
+							</div>
+							<div class="form-group">
+								<label>Text (control email)</label>
+								<input class="form-control" type="text" name="" data-control-email="" />
+								<div class="invalid-feedback">Adresse email invalide</div>
+							</div>
+							<div class="form-group">
+								<label>Text (control url)</label>
+								<input class="form-control" type="text" name="" data-control-url="" />
+								<div class="invalid-feedback">Url invalide</div>
+							</div>
+							<div class="form-group">
+								<label>Text (control pattern: url)</label>
+								<input class="form-control" type="text" name="" data-control-pattern="/^(http(s)?:\/\/(www\.)?)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i" />
+								<div class="invalid-feedback">Url invalide</div>
+							</div>
+							<div class="form-group">
+								<label>Current password (control length: min 4)</label>
+								<input class="form-control" type="password" name="current_password" data-control="minLength" data-expected="4" />
+								<div class="invalid-feedback">Entrez votre ancien mot de passe</div>
+							</div>
+							<div class="form-group">
+								<label>Password (control length: min 4)</label>
+								<input class="form-control" type="password" name="password" data-control-minLength="4" data-control-newPassword="current_password" />
+								<div class="invalid-feedback">Mot de passe trop court</div>
+							</div>
+							<div class="form-group">
+								<label>Text (control verifPassword)</label>
+								<input class="form-control" type="password" name="verify_password" data-control-verifPassword="password" />
+								<div class="invalid-feedback">Les mots de passes ne correspondent pas</div>
+							</div>
+							<div class="row">
+								<div class="col-6">
+									<textarea class="form-control" id="bind1" data-control-minlength="50" data-bind="bind2"></textarea>
+								</div>
+								<div class="col-6">
+									<textarea class="form-control" id="bind2" data-control-minlength="50" data-bind="bind1"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Not required field and any control</label>
+								<input class="form-control" type="text" name="any" />
+							</div>
+						</div>
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-12 text-center">
+							<button type="submit" class="btn btn-primary">Valider</button>
+						</div>
+					</div>
+				</form>
+				<form id="two" class="controlled">
+					<div class="row mt-5">
+						<div class="col-12 text-center">
+							<div class="form-group">
+								<label>Second formulaire</label>
+								<input class="form-control" type="text" name="test" required="" />
+							</div>
+						</div>
+						<div class="col-12 text-center">
+							<button class="btn btn-primary" type="submit">Valider</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="formController.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var first = new FormController('form#one', {
+				blurControl: false,
+				runningControl: true,
+				showIsValid: true,
+				quitPrevent: true,
+				submitCallback: function() {
+					if ($('#confirm').val()=='yes') {
+						$('#confirm').removeClass('is-invalid');
+						return true;
+					} else {
+						$('#confirm').removeClass('is-valid');
+						$('#confirm').addClass('is-invalid');
+						return false;	
+					}
+				}
+			});
+			var second = new FormController('form#two');
+		});
+	</script>
+</body>
+</html>
