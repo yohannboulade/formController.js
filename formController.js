@@ -136,7 +136,7 @@ function FormController(target, options) {
 	// Step By Step Control
 	if (this.options.stepByStep) {
 		var that = this;
-		$('button.next-step').click(function(){
+		$(that.target+' .next-step').click(function(){
 			validationSuccess = true;
 			var step = $(this).parents('.step').data('step');
 			$(that.target+' .step[data-step='+step+'] input, '+that.target+' .step[data-step='+step+'] textarea, '+that.target+' .step[data-step='+step+'] select').each(function(i){
@@ -150,7 +150,8 @@ function FormController(target, options) {
 				that.options.nextStepCallback();
 			}
 		});
-		$('button.prev-step').click(function(){
+		$(that.target+' .prev-step').click(function(){
+			var step = $(this).parents('.step').data('step');
 			if (that.options.nextStepAnimation) {
 				that.options.nextStepAnimation();					
 			} else {
