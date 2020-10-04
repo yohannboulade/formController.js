@@ -104,23 +104,27 @@
 	<script type="text/javascript" src="formController.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			var first = new FormController('form#one', {
-				blurControl: false,
-				runningControl: true,
-				showIsValid: true,
-				quitPrevent: true,
-				submitCallback: function() {
-					if ($('#confirm').val()=='yes') {
-						$('#confirm').removeClass('is-invalid');
-						return true;
-					} else {
-						$('#confirm').removeClass('is-valid');
-						$('#confirm').addClass('is-invalid');
-						return false;	
-					}
-				}
-			});
-			var second = new FormController('form#two');
+			// var first = new FormController('form#one', {
+			// 	blurControl: false,
+			// 	runningControl: true,
+			// 	showIsValid: true,
+			// 	quitPrevent: true,
+			// 	submitCallback: function() {
+			// 		if ($('#confirm').val()=='yes') {
+			// 			$('#confirm').removeClass('is-invalid');
+			// 			return true;
+			// 		} else {
+			// 			$('#confirm').removeClass('is-valid');
+			// 			$('#confirm').addClass('is-invalid');
+			// 			return false;	
+			// 		}
+			// 	}
+			// });
+			// var second = new FormController('form#two');
+
+			// OR
+
+			$('form.controlled').formController();
 		});
 	</script>
 </body>
