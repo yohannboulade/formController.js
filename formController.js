@@ -412,8 +412,6 @@
 		return true;
 	}
 	$.fn.formController = function(options) {
-		var args = Array.prototype.slice.call(arguments, 1);
-
 		return this.each(function() {
 			new FormController($(this),options);
 		});
