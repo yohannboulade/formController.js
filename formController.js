@@ -62,7 +62,7 @@ function FormController(item, options) {
 		that.item.find('input[type=radio],input[type=checkbox]').each(function() {
 			var name = $(this).attr('name');
 			if (names.indexOf(name) < 0) {
-				if (that.target.find('input[name='+name+']').eq(0).parent().prop('tagName') == 'label') {
+				if (that.item.find('input[name='+name+']').eq(0).parent().prop('tagName') == 'label') {
 					$('<input type="hidden" name="'+name+'" value="" />').insertBefore(that.item.find('input[name='+name+']').eq(0));
 				} else {
 					$('<input type="hidden" name="'+name+'" value="" />').insertBefore(that.item.find('input[name='+name+']').eq(0).parent());
@@ -139,7 +139,7 @@ function FormController(item, options) {
 	// Step By Step Control
 	if (this.options.stepByStep) {
 		var that = this;
-		that.target.find('.next-step').click(function(){
+		that.item.find('.next-step').click(function(){
 			validationSuccess = true;
 			var step = $(this).parents('.step').data('step');
 			that.item.find('.step[data-step='+step+'] input, .step[data-step='+step+'] textarea, .step[data-step='+step+'] select').each(function(i){
@@ -383,15 +383,15 @@ FormController.prototype.control = function(input) {
 						inputError = !value.match(pattern, flags);
 						break;
 					case 'verifpassword':
-						var verifPassword = $(that.target+' input[name='+expected+']').val();
+						var verifPassword = that.item.find('input[name='+expected+']').val();
 						if (that.options.runningControl) {
-							$(that.target+' input[name='+expected+']').keyup(function(){
-								if($(that).val()!=$(that.target+' input[data-control-verifpassword]').val()){
-									$(that.target+' input[data-control-verifpassword]').addClass('is-invalid');
+							that.item.find('input[name='+expected+']').keyup(function(){
+								if($(that).val()!=that.item.find('input[data-control-verifpassword]').val()){
+									that.item.find('input[data-control-verifpassword]').addClass('is-invalid');
 								} else {
-									$(that.target+' input[data-control-verifpassword]').removeClass('is-invalid');
+									that.item.find('input[data-control-verifpassword]').removeClass('is-invalid');
 									if (that.options.showIsValid) {
-										$(that.target+' input[data-control-verifpassword]').addClass('is-valid');
+										that.item.find('input[data-control-verifpassword]').addClass('is-valid');
 									}
 								}
 							});
