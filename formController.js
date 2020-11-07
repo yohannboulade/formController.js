@@ -2,7 +2,7 @@
  * FormController.js
  * For Bootstrap 4 & Others
  * Author: Tisserand David
- * v1.2 2020-10-04
+ * v1.22 2020-11-07
  */
 
 
@@ -29,6 +29,7 @@ function FormController(item, options) {
 		stepByStep: false,
 		nextStepAnimation: false,
 		nextStepCallback : false,
+		prevStepAnimation: false,
 		customControl: false,
 		errorCallback : false,
 		progressTracking: false,
@@ -155,8 +156,8 @@ function FormController(item, options) {
 		});
 		that.item.find('.prev-step').click(function(){
 			var step = $(this).parents('.step').data('step');
-			if (that.options.nextStepAnimation) {
-				that.options.nextStepAnimation();					
+			if (that.options.prevStepAnimation && typeof that.options.prevStepAnimation == 'function') {
+				that.options.prevStepAnimation(step, that.item);					
 			} else {
 				that.item.find('.step[data-step='+step+']').hide();
 				that.item.find('.step[data-step='+(step-1)+']').show();
@@ -241,8 +242,8 @@ FormController.prototype.validation = function(step) {
 	var step = step || false;
 	if (validationSuccess) {
 		if (step && this.item.find('.step[data-step='+(step+1)+']').length) {
-			if (this.options.nextStepAnimation) {
-				this.options.nextStepAnimation();					
+			if (this.options.nextStepAnimation && typeof this.options.nextStepAnimation == 'function') {
+				this.options.nextStepAnimation(step, this.item);					
 			} else {
 				this.item.find('.step[data-step='+step+']').hide();
 				this.item.find('.step[data-step='+(step+1)+']').show();
