@@ -168,6 +168,8 @@ function FormController(item, options) {
 	var that = this;
 	that.item.find('.btn-submit').click(function(){
 
+		$(this).attr('disabled', true);
+
 		validationSuccess = true;
 
 		that.item.find('input, textarea, select').each(function(){
@@ -187,6 +189,36 @@ function FormController(item, options) {
 			}
 			that.validation();
 		}
+	});
+	// Enter Press
+	that.item.find('input, textarea').keyup(function(e){
+
+		var key = e.which;
+		if(key == 13)  // the enter key code
+		{
+			that.item.find('.btn-submit').attr('disabled', true);
+
+			validationSuccess = true;
+
+			that.item.find('input, textarea, select').each(function(){
+				that.control($(this));
+			});
+			
+			if ($.active > 0) {
+				$( document ).ajaxComplete(function(){
+					if (that.options.customControl) {
+						validationSuccess = validationSuccess && that.options.customControl();
+					}
+					that.validation();
+				});
+			} else {
+				if (that.options.customControl) {
+					validationSuccess = validationSuccess && that.options.customControl();
+				}
+				that.validation();
+			}
+
+		}  
 	});
 }
 
@@ -261,7 +293,7 @@ FormController.prototype.validation = function(step) {
 		if (this.options.errorCallback) {
 			this.options.errorCallback();
 		}
-		return false;
+		that.item.find('.btn-submit').attr('disabled', false);
 	}
 }
 
