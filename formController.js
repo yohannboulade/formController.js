@@ -192,7 +192,7 @@ function FormController(item, options) {
 		}
 	});
 	// Enter Press
-	that.item.find('input, textarea').keyup(function(e){
+	that.item.find('input[type=text],input[type=password],input[type=number]').keyup(function(e){
 
 		var key = e.which;
 		if(key == 13)  // the enter key code
