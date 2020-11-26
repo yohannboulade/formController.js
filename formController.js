@@ -2,7 +2,7 @@
  * FormController.js
  * For Bootstrap 4 & Others
  * Author: Tisserand David
- * v1.22 2020-11-07
+ * v1.23 2020-11-26
  */
 
 
@@ -42,10 +42,9 @@ function FormController(item, options) {
 	this.options = $.extend({}, defaults, options);
 	validationSuccess = false;
 
-
 	// Disable submit button
-	if (item.find('[type=submit]').length) {
-		item.find('[type=submit]').each(function(){
+	if (this.item.find('[type=submit]').length) {
+		this.item.find('[type=submit]').each(function(){
 			$(this).addClass('btn-submit');
 			$(this).attr('type', 'button');			
 		});		
@@ -192,11 +191,10 @@ function FormController(item, options) {
 		}
 	});
 	// Enter Press
-	that.item.find('input[type=text],input[type=password],input[type=number]').keyup(function(e){
-
-		var key = e.which;
-		if(key == 13)  // the enter key code
+	that.item.find('input[type=text],input[type=password],input[type=number]').keydown(function(e){
+		if(e.keyCode == 13)  // the enter key code
 		{
+			e.preventDefault();
 			that.item.find('.btn-submit').attr('disabled', true);
 
 			validationSuccess = true;
