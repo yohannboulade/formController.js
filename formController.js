@@ -14,7 +14,7 @@ function FormController(item, options) {
 		return false;
 	}
 
-	this.item = item;
+	this.item = $(item);
 
 	var options = options || [];
 	/* Default Config */
@@ -446,7 +446,7 @@ FormController.prototype.control = function(input) {
 }
 $.fn.formController = function(options) {
 	return this.each(function() {
-		new FormController($(this),options);
+		new FormController(this,options);
 	});
 };
 $.fn.formController.Constructor = FormController;
