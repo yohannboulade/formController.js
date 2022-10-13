@@ -372,6 +372,9 @@ FormController.prototype.control = function(input) {
 					case 'email':
 						inputError = !value.match(/^[a-z0-9_\.-]+\@[a-z0-9_\.-]+\.[a-z]{2,4}$/i);
 						break;
+					case 'phone':
+						inputError = !value.match(/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/i);
+						break;
 					case 'url':
 						inputError = !value.match(/^(http(s)?:\/\/(www\.)?)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i);
 						break;
